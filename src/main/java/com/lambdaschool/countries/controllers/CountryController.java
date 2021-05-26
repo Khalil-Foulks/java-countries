@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -66,5 +67,24 @@ public class CountryController
     }
 
     // http://localhost:2019/population/min
+    @GetMapping(value = "/population/min", produces = "application/json")
+    public ResponseEntity<?> getMin() {
+        List<Country> countryList = new ArrayList<>();
+        countryRepository.findAll().iterator().forEachRemaining(countryList::add);
+
+        long minPop = countryList.get(0).getPopulation();
+        Country minCountry = countryList.get(0);
+
+        for (Country c : countryList) {
+            if (c.getPopulation() < minPop) {
+             minPop = c.getPopulation();
+             minCountry = c;
+            }
+        }
+
+        System.out.println("The min pop is: " + minPop);
+        return new ResponseEntity<>(minCountry, HttpStatus.OK);
+    }
+
     // http://localhost:2019/population/max
 }

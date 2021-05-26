@@ -87,4 +87,22 @@ public class CountryController
     }
 
     // http://localhost:2019/population/max
+    @GetMapping(value = "/population/max", produces = "application/json")
+    public ResponseEntity<?> getMax() {
+        List<Country> countryList = new ArrayList<>();
+        countryRepository.findAll().iterator().forEachRemaining(countryList::add);
+
+        long maxPop = countryList.get(0).getPopulation();
+        Country maxCountry = countryList.get(0);
+
+        for (Country c : countryList) {
+            if (c.getPopulation() > maxPop) {
+                maxPop = c.getPopulation();
+                maxCountry = c;
+            }
+        }
+
+        System.out.println("The min pop is: " + maxPop);
+        return new ResponseEntity<>(maxCountry, HttpStatus.OK);
+    }
 }

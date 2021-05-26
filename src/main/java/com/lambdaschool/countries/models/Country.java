@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 public class Country {
     @Id@GeneratedValue(strategy = GenerationType.AUTO)
+    private long countryid;
     private String name;
     private long population;
     private long landmasskm2;
@@ -29,6 +30,16 @@ public class Country {
         this.population = population;
         this.landmasskm2 = landmasskm2;
         this.medianage = medianage;
+    }
+
+    public long getCountryid()
+    {
+        return countryid;
+    }
+
+    public void setCountryid(long countryid)
+    {
+        this.countryid = countryid;
     }
 
     public String getName()

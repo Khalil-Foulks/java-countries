@@ -6,7 +6,8 @@ import javax.persistence.*;
 @Table(name = "countries")
 
 public class Country {
-    @Id@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long countryid;
     private String name;
     private long population;
@@ -14,11 +15,11 @@ public class Country {
     private int medianage;
 
     // default constructor
+
     public Country()
     {
 
     }
-
     // constructor
     public Country(
         String name,
